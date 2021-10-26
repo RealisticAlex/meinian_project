@@ -1,0 +1,16 @@
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Project exclude paths
+/meinian_common/target/
+/meinian_dao/target/
+/meinian_interface/target/
+/meinian_pojo/target/
+/meinian_service/target/
+/meinian_web/target/
