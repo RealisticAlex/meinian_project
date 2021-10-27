@@ -5,7 +5,7 @@
 .idea
 *.iml
 out
-target
+
 gen
 
 # Project exclude paths
