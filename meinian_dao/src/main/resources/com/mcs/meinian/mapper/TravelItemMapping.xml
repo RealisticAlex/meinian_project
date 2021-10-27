@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.TravelItemMapping">
+
+    <!--int addTravelItem(TravelItem travelItem)-->
+    <select id="addTravelItem" parameterType="travelItem">
+        insert into values (#{id},
+                            #{code},
+                            #{name},
+                            #{sex},
+                            #{age},
+                            #{price},
+                            #{type},
+                            #{remark},
+                            #{attention})
+    </select>
+
+    <!--Page findPageTravelItemByQueryString(@Param("queryString") String queryString)-->
+    <select id="findPageTravelItemByQueryString" resultType="travelItem">
+        select * from t_travelitem
+        <where>
+            <if test="queryString != null and queryString !='' ">
+                code = #{queryString} or name like "%"#{queryString}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--int deleteTravelItemById(Integer id)-->
+    <delete id="deleteTravelItemById" parameterType="int">
+        delete
+        from t_travelitem
+        where id = #{id}
+    </delete>
+
+    <!--int editTravelItemById(@Param("id") Integer id)-->
+    <update id="editTravelItemById">
+        update t_travelitem
+        set code=#{code},
+            name =#{name},
+            sex=#{sex},
+            age=#{age},
+            price=#{price},
+            type=#{type},
+            remark=#{remark},
+            attention=#{attention}
+        where id = #{id}
+    </update>
+
+</mapper>

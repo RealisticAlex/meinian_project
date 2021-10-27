@@ -1,5 +1,7 @@
 package com.mcs.meinian.entity;
 
+import com.mcs.meinian.pojo.TravelItem;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,8 +10,8 @@ import java.util.List;
  */
 public class PageResult implements Serializable{
     private Long total;//总记录数
-    private List rows;//当前页结果
-    public PageResult(Long total, List rows) {
+    private List<TravelItem> rows;//当前页结果
+    public PageResult(Long total, List<TravelItem> rows) {
         super();
         this.total = total;
         this.rows = rows;
@@ -20,10 +22,10 @@ public class PageResult implements Serializable{
     public void setTotal(Long total) {
         this.total = total;
     }
-    public List getRows() {
+    public List<TravelItem> getRows() {
         return rows;
     }
-    public void setRows(List rows) {
+    public void setRows(List<TravelItem> rows) {
         this.rows = rows;
     }
 }
