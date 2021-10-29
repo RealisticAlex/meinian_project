@@ -5,7 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.mcs.meinian.entity.PageResult;
 import com.mcs.meinian.entity.QueryPageBean;
-import com.mcs.meinian.mapper.TravelItemMapping;
+import com.mcs.meinian.mapper.TravelItemMapper;
 import com.mcs.meinian.pojo.TravelItem;
 import com.mcs.meinian.service.TravelItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TravelItemServiceImpl implements TravelItemService {
 
     @Autowired
-    private TravelItemMapping travelItemMapping;
+    private TravelItemMapper travelItemMapper;
 
     /**
      * 新增自由行业务
@@ -29,7 +29,7 @@ public class TravelItemServiceImpl implements TravelItemService {
      */
     @Override
     public void addTravelItem(TravelItem travelItem) throws Exception {
-        travelItemMapping.addTravelItem(travelItem);
+        travelItemMapper.addTravelItem(travelItem);
     }
 
     /**
@@ -40,8 +40,9 @@ public class TravelItemServiceImpl implements TravelItemService {
     @Override
     public PageResult findPage(QueryPageBean queryPageBean){
 
+        //开启分页查询
         PageHelper.startPage(queryPageBean.getCurrentPage(), queryPageBean.getPageSize());
-        Page page = travelItemMapping.findPageTravelItemByQueryString(queryPageBean.getQueryString());
+        Page page = travelItemMapper.findPageTravelItemByQueryString(queryPageBean.getQueryString());
         return new PageResult(page.getTotal(),page.getResult());
     }
 
@@ -53,7 +54,7 @@ public class TravelItemServiceImpl implements TravelItemService {
     @Override
     public void deleteTravelItem(Integer id) throws Exception {
 
-        travelItemMapping.deleteTravelItemById(id);
+        travelItemMapper.deleteTravelItemById(id);
     }
 
     /**
@@ -63,6 +64,6 @@ public class TravelItemServiceImpl implements TravelItemService {
      */
     @Override
     public void editTravelItem(TravelItem travelItem) throws Exception {
-        travelItemMapping.editTravelItemById(travelItem);
+        travelItemMapper.editTravelItemById(travelItem);
     }
 }

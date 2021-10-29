@@ -288,11 +288,9 @@
             },
             //分页查询
             findPage() {
-
                 axios.post("/travelItem/findPage.do", this.pagination).then((response) => {
                     //后端响应数据回浏览器
                     //总数据数
-
                     this.pagination.total = response.data.total;
                     //单行数据
                     this.dataList = response.data.rows;
@@ -316,18 +314,14 @@
             },
             //切换页码
             handleCurrentChange(currentPage) {
-
                 this.pagination.currentPage = currentPage;
                 this.findPage();
-
-
             },
             // 删除
             handleDelete(row) {
                 this.$confirm("确认删除当前选中记录吗？", "提示", {type: 'warning'}).then(() => {
                     // 发送ajax请求，执行删除
                     axios.get("/travelItem/deleteTravelItem.do?id=" + row.id).then((response) => {
-
                         if (response.data.flag) {
                             //删除成功
                             this.$message.success(response.data.message);

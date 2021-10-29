@@ -50,7 +50,6 @@ public class TravelItemController {
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) throws Exception {
 
         return travelItemService.findPage(queryPageBean);
-
     }
 
     /**
@@ -72,7 +71,7 @@ public class TravelItemController {
 
     /**
      * 根据id编辑自由行
-     * @param id
+     * @param travelItem
      * @return
      */
     @RequestMapping("/editTravelItem")

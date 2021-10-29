@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.mcs.meinian.pojo.TravelItem;
 import org.apache.ibatis.annotations.Param;
 
-public interface TravelItemMapping {
+public interface TravelItemMapper {
 
     /**
      * 新增自由行

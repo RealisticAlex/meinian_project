@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.TravelGroupMapper">
+    <!--List<TravelItem> findAll()-->
+    <select id="findAll" resultType="travelItem">
+        select *
+        from t_travelitem
+    </select>
+
+    <!--void addTravelGroup(TravelGroup travelGroup)-->
+    <insert id="addTravelGroup" useGeneratedKeys="true" keyProperty="id">
+        insert into t_travelgroup
+        values (null, #{code}, #{name},
+                #{helpCode},
+                #{sex},
+                #{remark},
+                #{attention})
+
+    </insert>
+
+    <!--void addTravelGroupAndTravelItem(@Param("travelGroupId"),@Param("travelItemIds") Integer[] travelItemIds)-->
+    <insert id="addTravelGroupAndTravelItem">
+        insert into t_travelgroup_travelitem values
+        <foreach collection="travelItemIds" separator="," item="travelItemId">
+            (#{travelGroupId},#{travelItemId})
+        </foreach>
+    </insert>
+
+    <!--Page findPageTravelItemByQueryString(@Param("queryString") String queryString)-->
+    <select id="findPageTravelItemByQueryString" resultType="travelGroup">
+        select * from t_travelgroup
+        <where>
+            <if test="queryString != null and queryString != '' ">
+                code = #{queryString} or name like "%"#{queryString}"%" or helpCode = #{queryString}
+            </if>
+        </where>
+    </select>
+
+    <!--void deleteTravelGroupById(@Param("id") Integer id)-->
+    <delete id="deleteTravelGroupById">
+        delete
+        from t_travelgroup
+        where id = #{id};
+    </delete>
+
+    <!--List<Integer> getTravelItemIdsByTravelGroupId(@Param("id") Integer id)-->
+    <select id="getTravelItemIdsByTravelGroupId" resultType="int">
+        select travelitem_id
+        from t_travelgroup_travelitem
+        where travelgroup_id = #{id}
+    </select>
+
+    <!--void updateTravelGroup(TravelGroup travelGroup)-->
+    <insert id="updateTravelGroup">
+        update t_travelgroup
+        set code=#{code},
+            name=#{name},
+            helpCode=#{helpCode},
+            sex=#{sex},
+            remark=#{remark},
+            attention=#{attention}
+        where id = #{id}
+    </insert>
+
+    <!--void deleteTravelGroupAndTravelItemById(@Param("id") Integer id)-->
+    <delete id="deleteTravelGroupAndTravelItemById">
+        delete
+        from t_travelgroup_travelitem
+        where travelgroup_id = #{id}
+    </delete>
+
+</mapper>
