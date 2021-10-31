@@ -25,7 +25,7 @@
 
     </insert>
 
-    <!--void addTravelGroupAndTravelItem(@Param("travelGroupId"),@Param("travelItemIds") Integer[] travelItemIds)-->
+    <!--void addTravelGroupAndTravelItem(@Param("travelGroupId") travelGroupId,@Param("travelItemIds") Integer[] travelItemIds)-->
     <insert id="addTravelGroupAndTravelItem">
         insert into t_travelgroup_travelitem values
         <foreach collection="travelItemIds" separator="," item="travelItemId">

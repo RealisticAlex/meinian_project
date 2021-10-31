@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.SetMealMapper">
+    <!-- List<TravelGroup> findAll() -->
+    <select id="findAll" resultType="travelGroup">
+        select *
+        from t_travelgroup
+    </select>
+
+    <!--void addSetMeal(Setmeal setmeal)-->
+    <insert id="addSetMeal" useGeneratedKeys="true" keyProperty="id">
+        insert into t_setmeal
+        values (null,
+                #{name},
+                #{code},
+                #{helpCode},
+                #{sex},
+                #{age},
+                #{price},
+                #{remark},
+                #{attention},
+                #{img})
+    </insert>
+    <!--void addSetmealAndTravelGroupId(@Param("id") Integer id, @Param("travelItemIds") Integer[] travelItemIds)-->
+    <insert id="addSetmealAndTravelGroupId">
+        insert into t_setmeal_travelgroup values
+        <foreach collection="travelGroupIds" item="travelGroupIds" separator=",">
+            (#{id},#{travelGroupIds})
+        </foreach>
+    </insert>
+    <!--Page findPage(@Param("queryString") String queryString)-->
+    <select id="findPage" resultType="Setmeal">
+        select * from t_setmeal
+        <where>
+            <if test="queryString != null and queryString !='' ">
+                code = #{queryString} or helpCode = #{queryString} or name like "%"#{queryString}"%"
+            </if>
+        </where>
+    </select>
+    <!--void deleteSetMealAndTravelGroup(@Param("id") Integer id)-->
+    <delete id="deleteSetMealAndTravelGroup">
+        delete
+        from t_setmeal_travelgroup
+        where setmeal_id = #{id}
+    </delete>
+    <!--void deleteSetMeal(@Param("id") Integer id)-->
+    <delete id="deleteSetMeal">
+        delete
+        from t_setmeal
+        where id = #{id}
+    </delete>
+    <!--List<Integer> getTravelGroupIdBySetMeal(Integer id)-->
+    <select id="getTravelGroupIdBySetMeal" resultType="int">
+        select travelgroup_id
+        from t_setmeal_travelgroup
+        where setmeal_id = #{id}
+    </select>
+    <!--void updateSetMeal(Setmeal setmeal)-->
+    <update id="updateSetMeal">
+        update t_setmeal
+        set name=#{name},
+            code=#{code},
+            helpCode=#{helpCode},
+            sex=#{sex},
+            age=#{age},
+            price=#{price},
+            remark=#{remark},
+            attention=#{attention},
+            img=#{img}
+        where id = #{id}
+
+    </update>
+</mapper>

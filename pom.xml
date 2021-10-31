@@ -14,6 +14,7 @@
         <module>meinian_interface</module>
         <module>meinian_service</module>
         <module>meinian_web</module>
+        <module>meinian_job</module>
     </modules>
     <packaging>pom</packaging>
 
