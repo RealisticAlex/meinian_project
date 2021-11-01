@@ -1,4 +1,4 @@
-package com.mcs.meinian.constant;
+package com.mcs.meinian.utils;
 
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;

@@ -373,12 +373,18 @@
         methods: {
             //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
             handleAvatarSuccess(response, file) {
-                //对imageUrl赋值,将图片显示到文件上传的框中,进行浏览
-                this.imageUrl = "http://r1rsc92io.hn-bkt.clouddn.com/"+response.data;
-                //用于回显
-                this.$message.success(response.message);
-                //设置模型数据（图片名称），后续提交ajax请求时会提交到后台最终保存到数据库
-                this.formData.img = response.data; // 用于保存
+                if (response.flag){
+                    //对imageUrl赋值,将图片显示到文件上传的框中,进行浏览
+                    this.imageUrl = "http://r1rsc92io.hn-bkt.clouddn.com/"+response.data;
+                    //用于回显
+                    this.$message.success(response.message);
+                    //设置模型数据（图片名称），后续提交ajax请求时会提交到后台最终保存到数据库
+                    this.formData.img = response.data; // 用于保存
+                }else {
+                    this.$message.error(response.message);
+                }
+
+
             },
             //上传图片之前执行
             beforeAvatarUpload(file) {
@@ -399,7 +405,7 @@
                     this.activeName = "second";
                     this.$message.error("请选择抱团游行");
                 } else {
-                    axios.post("/setMeal/updateSetMeal.do?travelGroupIds=" + this.travelGroupIds, this.formData).then(response => {
+                    axios.post("/setMeal/updateSetMeal.do?travelGroupIds=" + this.travelGroupIds, this.formData).then((response) => {
                         //将编辑跟团游的对话框关闭
                         this.dialogFormVisible4Edit = false;
                         if (response.data.flag) {

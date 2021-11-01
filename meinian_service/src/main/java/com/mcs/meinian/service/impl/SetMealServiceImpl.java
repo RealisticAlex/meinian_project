@@ -55,6 +55,12 @@ public class SetMealServiceImpl implements SetMealService {
         jedis.sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES, setmeal.getImg());
     }
 
+    /**
+     * 分页查询
+     * @param queryPageBean
+     * @return
+     * @throws Exception
+     */
     @Override
     public PageResult findPage(QueryPageBean queryPageBean) throws Exception {
         PageHelper.startPage(queryPageBean.getCurrentPage(), queryPageBean.getPageSize());
@@ -63,6 +69,11 @@ public class SetMealServiceImpl implements SetMealService {
 
     }
 
+    /**
+     * 删除套餐
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void deleteSetMeal(Integer id) throws Exception {
         //先删除中间表数据

@@ -1,6 +1,6 @@
 package com.mcs.meinian.job;
 
-import com.mcs.meinian.constant.QiniuUtils;
+import com.mcs.meinian.utils.QiniuUtils;
 import com.mcs.meinian.constant.RedisConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

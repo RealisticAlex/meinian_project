@@ -2,7 +2,7 @@ package com.mcs.meinian.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.mcs.meinian.constant.MessageConstant;
-import com.mcs.meinian.constant.QiniuUtils;
+import com.mcs.meinian.utils.QiniuUtils;
 import com.mcs.meinian.constant.RedisConstant;
 import com.mcs.meinian.entity.PageResult;
 import com.mcs.meinian.entity.QueryPageBean;

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.OrderSettingMapper">
+
+    <!--int findCountByOrderDate(Date orderDate)-->
+    <select id="findCountByOrderDate" resultType="int">
+        select count(*)
+        from t_ordersetting
+        where orderDate = #{orderDate}
+    </select>
+    <!--void updateOrderSetting(OrderSetting orderSetting)-->
+    <update id="updateOrderSetting">
+        update t_ordersetting
+        set number = #{number}
+        where orderDate = #{orderDate}
+    </update>
+    <!--void addOrderSetting(OrderSetting orderSetting)-->
+    <insert id="addOrderSetting">
+        insert into t_ordersetting
+        values (null, #{orderDate}, #{number}, 0);
+    </insert>
+
+    <!--List<OrderSetting> getOrderSettingByMonth(@Param("startDate") String startDate,@Param("endDate") String endDate)-->
+    <select id="getOrderSettingByMonth" resultType="orderSetting">
+        select *
+        from t_ordersetting
+        where orderDate between #{startDate} and #{endDate}
+    </select>
+
+</mapper>

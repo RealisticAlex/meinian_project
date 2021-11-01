@@ -8,7 +8,6 @@
     <!--配置编码过滤器,解决post乱码Spring里的字符过滤器CharacterEncodingFilter是针对请求的，
    forceEncoding=true是意思是指无论客户端请求是否包含了编码，都用过滤器里的编码来解析请求
    -->
-
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
