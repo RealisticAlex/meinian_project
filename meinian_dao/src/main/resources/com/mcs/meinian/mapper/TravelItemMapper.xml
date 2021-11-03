@@ -54,4 +54,12 @@
         where id = #{id}
     </update>
 
+    <!--List<TravelItem> findTravelItemById(@Param("travelGroupId") Integer travelGroupId)-->
+    <select id="findTravelItemByTravelGroupId" resultType="travelItem">
+        select *
+        from t_travelgroup_travelitem ttt
+                 left join t_travelitem tt on ttt.travelitem_id = tt.id
+        where travelgroup_id = #{travelGroupId}
+    </select>
+
 </mapper>

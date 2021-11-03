@@ -107,4 +107,25 @@ public class SetMealServiceImpl implements SetMealService {
         //添加中间表信息
         setMealMapper.addSetmealAndTravelGroupId(setmeal.getId(),travelGroupIds);
     }
+
+    /**
+     * 查询套餐列表
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Setmeal> findAllSetmeal() throws Exception {
+        return setMealMapper.findAllSetmeal();
+    }
+
+    /**
+     * 通过id查询套餐信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Setmeal findById(Integer id) throws Exception {
+        return setMealMapper.findSetmealById(id);
+    }
 }

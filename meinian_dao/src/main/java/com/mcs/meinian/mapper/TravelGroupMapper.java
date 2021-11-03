@@ -65,4 +65,12 @@ public interface TravelGroupMapper {
      * @param id
      */
     void deleteTravelGroupAndTravelItemById(@Param("id") Integer id) throws Exception;
+
+    /**
+     * 分布查询第二步
+     * @param setmealId
+     * @return
+     * @throws Exception
+     */
+    List<TravelGroup> findTravelGroupBySetmealId(@Param("setmealId") Integer setmealId) throws Exception;
 }

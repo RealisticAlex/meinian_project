@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.OrderInfoMapper">
+    <!--OrderSetting findOrderSettingByOrderDate(Date orderDate)-->
+    <select id="findOrderSettingByOrderDate" resultType="OrderSetting">
+        select *
+        from t_ordersetting
+        where orderDate = #{orderDate}
+    </select>
+
+    <!--Member findMemberByTelephone(@Param("telephone") String telephone)-->
+    <select id="findMemberByTelephone" resultType="member">
+        select *
+        from t_member
+        where phoneNumber = #{telephone}
+    </select>
+
+    <!--void addMember(Member member) throws Exception-->
+    <insert id="addMember">
+        insert into t_member
+        values (null,
+                #{fileNumber},
+                #{name},
+                #{sex},
+                #{idCard},
+                #{phoneNumber},
+                #{regTime},
+                #{password},
+                #{email},
+                #{birthday},
+                #{remark})
+    </insert>
+
+    <!--int findCountByCondition(Order order)-->
+    <select id="findCountByCondition" resultType="int">
+        select count(*)
+        from t_order
+        where member_id = #{memberId}
+          and orderDate = #{orderDate}
+          and setmeal_id = #{setmealId}
+    </select>
+    <!--void updateReservationsByOrderDate(String orderDate)-->
+    <update id="updateReservationsByOrderDate">
+        update t_ordersetting
+        set reservations = reservations + 1
+        where orderDate = #{orderDate}
+    </update>
+
+    <!--void addOrder(Order order)-->
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order
+        values (null,
+                #{memberId}, #{orderDate}, #{orderType}, #{orderStatus}, #{setmealId})
+    </insert>
+    <!--Map findById(@Param("id") Integer id)-->
+    <select id="findById" resultType="map">
+        select t_member.name member, t_setmeal.name setmeal, t_order.orderDate, t_order.orderType
+        from t_order
+                 left join t_member
+                           on t_order.member_id = t_member.id
+                 left join t_setmeal
+                           on t_order.setmeal_id = t_setmeal.id
+        where t_order.id = #{id}
+    </select>
+</mapper>

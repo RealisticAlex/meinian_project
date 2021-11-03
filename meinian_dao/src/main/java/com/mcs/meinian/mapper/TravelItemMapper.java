@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.mcs.meinian.pojo.TravelItem;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TravelItemMapper {
 
     /**
@@ -38,4 +40,13 @@ public interface TravelItemMapper {
      * @throws Exception
      */
     int editTravelItemById(TravelItem travelItem) throws Exception;
+
+
+    /**
+     * 分布查询第三步
+     * @param travelGroupId
+     * @return
+     * @throws Exception
+     */
+    List<TravelItem> findTravelItemByTravelGroupId(@Param("travelGroupId") Integer travelGroupId) throws Exception;
 }

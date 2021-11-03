@@ -60,4 +60,20 @@ public interface SetMealMapper {
      * @param setmeal
      */
     void updateSetMeal(Setmeal setmeal) throws Exception;
+
+    /**
+     * 查询套餐列表
+     * @return
+     * @throws Exception
+     */
+    List<Setmeal> findAllSetmeal() throws Exception;
+
+
+    /**
+     * 分布查询第一步
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Setmeal findSetmealById(@Param("id") Integer id) throws Exception;
 }

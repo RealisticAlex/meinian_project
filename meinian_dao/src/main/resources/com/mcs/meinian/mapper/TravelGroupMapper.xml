@@ -76,4 +76,24 @@
         where travelgroup_id = #{id}
     </delete>
 
+    <resultMap id="travelGroupMap" type="travelGroup">
+        <id column="id" property="id"></id>
+        <result property="code" column="code"></result>
+        <result property="name" column="name"></result>
+        <result property="helpCode" column="helpCode"></result>
+        <result property="sex" column="sex"></result>
+        <result property="remark" column="remark"></result>
+        <result property="attention" column="attention"></result>
+        <collection property="travelItems"
+                    column="id"
+                    select="com.mcs.meinian.mapper.TravelItemMapper.findTravelItemByTravelGroupId"></collection>
+    </resultMap>
+
+    <!--List<TravelGroup> findTravelGroupById(@Param("setmealId") Integer setmealId)-->
+    <select id="findTravelGroupBySetmealId" resultMap="travelGroupMap" parameterType="int">
+        select *
+        from t_setmeal_travelgroup tst
+                 left join t_travelgroup tt on tst.travelgroup_id = tt.id
+        where tst.setmeal_id = #{setmealId}
+    </select>
 </mapper>

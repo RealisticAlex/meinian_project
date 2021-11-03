@@ -38,6 +38,10 @@
         <poi.version>3.14</poi.version>
         <jedis.version>2.9.0</jedis.version>
         <quartz.version>2.2.1</quartz.version>
+        <httpclient.version>4.2.1</httpclient.version>
+        <httpcore.version>4.2.1</httpcore.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <jetty-util.version>9.3.7.v20160115</jetty-util.version>
     </properties>
     <!-- 依赖管理标签  必须加 -->
     <dependencyManagement>

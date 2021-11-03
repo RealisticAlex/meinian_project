@@ -52,4 +52,17 @@ public interface SetMealService {
      * @param travelGroupIds
      */
     void updateSetMeal(Setmeal setmeal, Integer[] travelGroupIds) throws Exception;
+
+    /**
+     * 查询套餐列表
+     * @return
+     */
+    List<Setmeal> findAllSetmeal() throws Exception;
+
+    /**
+     * 通过id查询套餐信息
+     * @param id
+     * @return
+     */
+    Setmeal findById(Integer id) throws Exception;
 }

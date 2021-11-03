@@ -67,7 +67,7 @@ public class Member implements Serializable{
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getRegTime() {
+    public Date getRegTime(Date date) {
         return regTime;
     }
 

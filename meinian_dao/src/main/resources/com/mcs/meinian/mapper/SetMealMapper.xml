@@ -77,4 +77,36 @@
         where id = #{id}
 
     </update>
+    <!--List<Setmeal> findAllSetmeal()-->
+    <select id="findAllSetmeal" resultType="setmeal">
+        select *
+        from t_setmeal
+    </select>
+
+    <resultMap id="SetmealMap" type="setmeal">
+        <id column="id" property="id"></id>
+        <result property="name" column="name"></result>
+        <result property="code" column="code"></result>
+        <result property="helpCode" column="helpCode"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="price" column="price"></result>
+        <result property="remark" column="remark"></result>
+        <result property="attention" column="attention"></result>
+        <result property="img" column="img"></result>
+        <!--
+            collection:处理集合类型的属性
+            select: 设置分布查询的sql的id(方法名或mapper映射文件namespace.sql方法)
+            column: 设置作为分布查询条件的字段
+        -->
+        <collection property="travelGroups"
+                    column="id"
+                    select="com.mcs.meinian.mapper.TravelGroupMapper.findTravelGroupBySetmealId"></collection>
+    </resultMap>
+    <!--Setmeal findSetmealById(@Param("id") Integer id)-->
+    <select id="findSetmealById" resultMap="SetmealMap">
+        select *
+        from t_setmeal
+        where id = #{id}
+    </select>
 </mapper>

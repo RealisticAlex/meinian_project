@@ -380,6 +380,7 @@
                     this.$message.success(response.message);
                     //设置模型数据（图片名称），后续提交ajax请求时会提交到后台最终保存到数据库
                     this.formData.img = response.data; // 用于保存
+
                 }else {
                     this.$message.error(response.message);
                 }
