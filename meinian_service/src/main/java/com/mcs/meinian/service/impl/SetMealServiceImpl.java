@@ -16,6 +16,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Alex
@@ -128,4 +129,16 @@ public class SetMealServiceImpl implements SetMealService {
     public Setmeal findById(Integer id) throws Exception {
         return setMealMapper.findSetmealById(id);
     }
+
+    /**
+     * 通过套餐查询预约人数
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Map> findSetmealCount() throws Exception {
+        return setMealMapper.findSetmealCount();
+    }
+
+
 }

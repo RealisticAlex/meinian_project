@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.ReportMapper">
+    <!--Integer todayNewMember(String reportDate) throws Exception;-->
+    <select id="todayNewMember" resultType="int">
+        select count(*)
+        from t_member
+        where regTime = #{reportDate}
+    </select>
+    <!--Integer totalMember() throws Exception;-->
+    <select id="totalMember" resultType="int">
+        select count(*)
+        from t_member
+    </select>
+    <!--Integer thisWeekNewMember(String reportDate, String thisWeekMonday) throws Exception;-->
+    <select id="thisWeekNewMember" resultType="int">
+        SELECT count(*)
+        FROM t_member
+        WHERE regTime BETWEEN #{reportDate}
+                  AND #{thisWeekMonday}
+    </select>
+    <!--Integer thisMonthNewMember(String firstDay4ThisMonth1, String reportDate) throws Exception;-->
+    <select id="thisMonthNewMember" resultType="int">
+        SELECT count(*)
+        FROM t_member
+        WHERE regTime BETWEEN #{firstDay4ThisMonth1}
+                  AND #{reportDate}
+    </select>
+    <!--Integer todayOrderNumber(String reportDate) throws Exception;-->
+    <select id="todayOrderNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate = #{reportDate}
+    </select>
+    <!--Integer todayVisitsNumber(String reportDate) throws Exception;-->
+    <select id="todayVisitsNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate = #{reportDate}
+          and orderStatus = '已出游'
+    </select>
+    <!--Integer thisWeekOrderNumber(String thisWeekMonday, String reportDate) throws Exception;-->
+    <select id="thisWeekOrderNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate between #{thisWeekMonday} and #{reportDate}
+    </select>
+    <!--Integer thisWeekVisitsNumber(String thisWeekMonday, String reportDate) throws Exception;-->
+    <select id="thisWeekVisitsNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate between #{thisWeekMonday} and #{reportDate}
+          and orderStatus = '已出游'
+    </select>
+    <!--Integer thisMonthOrderNumber(String firstDay4ThisMonth1, String reportDate) throws Exception;-->
+    <select id="thisMonthOrderNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate between #{firstDay4ThisMonth1} and #{reportDate}
+    </select>
+    <!--Integer thisMonthVisitsNumber(String firstDay4ThisMonth1, String reportDate) throws Exception;-->
+    <select id="thisMonthVisitsNumber" resultType="int">
+        select count(*)
+        from t_order
+        where orderDate between #{firstDay4ThisMonth1} and #{reportDate}
+          and orderStatus = '已出游'
+    </select>
+    <!--List<Map> findHotSetmeal() throws Exception-->
+    <select id="findHotSetmeal" resultType="map">
+        SELECT name name,
+               count(t_order.setmeal_id)  setmeal_count,
+               count(t_order.setmeal_id) / (SELECT count(t_order.id) FROM t_order) proportion
+        FROM t_setmeal
+                 LEFT JOIN t_order ON t_setmeal.id = t_order.setmeal_id
+        GROUP BY NAME
+        ORDER BY count(t_order.id) DESC LIMIT 2
+    </select>
+</mapper>

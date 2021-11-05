@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.AddressMapper">
+    <!--List<Address> findAllMaps()-->
+    <select id="findAllMaps" resultType="map">
+        select *
+        from t_address
+    </select>
+
+    <!--Page findPage(@Param("queryString") String queryString)-->
+    <select id="findPage" resultType="address">
+        select * from t_address
+        <where>
+            <if test="queryString!=null and queryString !=''  ">
+                addressName like "%"#{queryString}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--void deleteById(@Param("id") Integer id)-->
+    <delete id="deleteById">
+        delete
+        from t_address
+        where id = #{id}
+    </delete>
+
+    <!--void addAddress(Address address)-->
+    <insert id="addAddress">
+        insert into t_address
+        values (null, #{addressName}, #{lng}, #{lat})
+    </insert>
+</mapper>

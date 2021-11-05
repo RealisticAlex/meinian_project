@@ -109,4 +109,12 @@
         from t_setmeal
         where id = #{id}
     </select>
+
+    <!--List<Map> findSetmealCount()-->
+    <select id="findSetmealCount" resultType="map">
+        select t_setmeal.name name, count(t_setmeal.id) value
+        from t_setmeal
+                 LEFT JOIN t_order on t_setmeal.id = t_order.setmeal_id
+        GROUP BY name
+    </select>
 </mapper>

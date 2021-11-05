@@ -46,7 +46,7 @@
           and orderDate = #{orderDate}
           and setmeal_id = #{setmealId}
     </select>
-    <!--void updateReservationsByOrderDate(String orderDate)-->
+    <!--void updateReservationsByOrderDate(@Param("orderDate") String orderDate)-->
     <update id="updateReservationsByOrderDate">
         update t_ordersetting
         set reservations = reservations + 1

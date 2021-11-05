@@ -6,6 +6,7 @@ import com.mcs.meinian.pojo.TravelGroup;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SetMealMapper {
 
@@ -76,4 +77,12 @@ public interface SetMealMapper {
      * @throws Exception
      */
     Setmeal findSetmealById(@Param("id") Integer id) throws Exception;
+
+
+    /**
+     * 通过套餐查询预约人数
+     * @return
+     * @throws Exception
+     */
+    List<Map> findSetmealCount() throws Exception;
 }

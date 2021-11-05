@@ -13,6 +13,7 @@ public interface OrderInfoMapper {
      * 通过日期查找预约数
      * @param orderDate
      * @return
+     * @throws Exception
      */
     OrderSetting findOrderSettingByOrderDate(@Param("orderDate") String orderDate) throws Exception;
 
@@ -20,6 +21,7 @@ public interface OrderInfoMapper {
      * 通过电话查找会员
      * @param telephone
      * @return
+     * @throws Exception
      */
     Member findMemberByTelephone(@Param("telephone") String telephone) throws Exception;
 
@@ -27,6 +29,7 @@ public interface OrderInfoMapper {
      * 添加会员
      * @param member
      * @return
+     * @throws Exception
      */
     Member addMember(Member member) throws Exception;
 
@@ -34,12 +37,14 @@ public interface OrderInfoMapper {
      * 条件查询是否预约
      * @param order
      * @return
+     * @throws Exception
      */
     int findCountByCondition(Order order) throws Exception;
 
     /**
      * 更改预约数
      * @param orderDate
+     * @throws Exception
      */
     void updateReservationsByOrderDate(@Param("orderDate") String orderDate) throws Exception;
 

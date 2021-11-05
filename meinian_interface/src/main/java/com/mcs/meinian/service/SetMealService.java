@@ -6,6 +6,7 @@ import com.mcs.meinian.pojo.Setmeal;
 import com.mcs.meinian.pojo.TravelGroup;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SetMealService {
 
@@ -65,4 +66,12 @@ public interface SetMealService {
      * @return
      */
     Setmeal findById(Integer id) throws Exception;
+
+
+    /**
+     * 通过套餐查询预约人数
+     * @return
+     * @throws Exception
+     */
+    List<Map> findSetmealCount() throws Exception;
 }
