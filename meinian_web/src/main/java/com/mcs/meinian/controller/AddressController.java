@@ -67,6 +67,11 @@ public class AddressController {
         }
     }
 
+    /**
+     * 添加地址
+     * @param address
+     * @return
+     */
     @RequestMapping("/addAddress")
     public Result addAddress(@RequestBody Address address) {
         try {
