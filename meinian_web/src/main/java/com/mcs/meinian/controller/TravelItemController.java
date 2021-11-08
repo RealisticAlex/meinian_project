@@ -8,6 +8,7 @@ import com.mcs.meinian.entity.Result;
 import com.mcs.meinian.pojo.TravelItem;
 import com.mcs.meinian.service.TravelItemService;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,6 +29,7 @@ public class TravelItemController {
      * @return
      */
     @RequestMapping("/addTravelItem")
+    @PreAuthorize("hasAnyAuthority('TRAVELITEM_ADD')")
     public Result travelItem(@RequestBody TravelItem travelItem) {
 
         try {
@@ -39,7 +41,6 @@ public class TravelItemController {
         }
 
     }
-
     /**
      * 自由行分页查询
      * @param queryPageBean
@@ -47,19 +48,20 @@ public class TravelItemController {
      * @throws Exception
      */
     @RequestMapping("/findPage")
+    @PreAuthorize("hasAnyAuthority('TRAVELITEM_QUERY')")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) throws Exception {
-
         return travelItemService.findPage(queryPageBean);
     }
 
     /**
      * 根据id删除自由行
+     *
      * @param id
      * @return
      */
     @RequestMapping("/deleteTravelItem")
+    @PreAuthorize("hasAnyAuthority('TRAVELGROUP_DELETE')")
     public Result deleteTravelItem(Integer id) {
-
         try {
             travelItemService.deleteTravelItem(id);
             return new Result(true, MessageConstant.DELETE_TRAVELITEM_SUCCESS);
@@ -71,10 +73,12 @@ public class TravelItemController {
 
     /**
      * 根据id编辑自由行
+     *
      * @param travelItem
      * @return
      */
     @RequestMapping("/editTravelItem")
+    @PreAuthorize("hasAnyAuthority('SETMEAL_EDIT')")
     public Result editTravelItem(@RequestBody TravelItem travelItem) {
 
         try {

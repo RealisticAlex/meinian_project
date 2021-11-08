@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--设置匿名访问的资源-->
+    <security:http security="none" pattern="/js/**" />
+    <security:http security="none" pattern="/css/**" />
+    <security:http security="none" pattern="/img/**" />
+    <security:http security="none" pattern="/plugins/**" />
+    <security:http security="none" pattern="/login.html" />
+
+    <security:http auto-config="true" use-expressions="true">
+        <!--设置pages下所有的页面都必须认证之后才能访问-->
+        <security:intercept-url pattern="/pages/**" access="isAuthenticated()"></security:intercept-url>
+        <!--设置自定义的登录页面-->
+        <security:form-login login-page="/login.html"
+                             username-parameter="username"
+                             password-parameter="password"
+                             login-processing-url="/login.do"
+                             default-target-url="/pages/main.html"
+                             authentication-failure-url="/login.html"
+                             always-use-default-target="true"></security:form-login>
+        <!--禁用csrf功能-->
+        <security:csrf disabled="true"></security:csrf>
+        <!--设置退出登录功能-->
+        <security:logout logout-url="/logout.do" logout-success-url="/login.html" invalidate-session="true"></security:logout>
+        <security:headers>
+            <!--设置在页面可以通过iframe访问受保护的页面，默认为不允许访问-->
+            <security:frame-options policy="SAMEORIGIN"></security:frame-options>
+        </security:headers>
+        <!--自定义异常处理-->
+        <security:access-denied-handler ref="customAccessDeniedHandler"/>
+    </security:http>
+
+    <!--设置开启注解的方式管理权限-->
+    <security:global-method-security pre-post-annotations="enabled"></security:global-method-security>
+
+    <!--配置bcrypt密码加密程序-->
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+    <!--配置认证管理-->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="springSecurityUserService">
+            <security:password-encoder ref="bCryptPasswordEncoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

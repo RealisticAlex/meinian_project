@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.UserMapper">
+    <resultMap id="userResultMap" type="User">
+        <id property="id" column="id"></id>
+        <result property="birthday" column="birthday"></result>
+        <result property="gender" column="gender"></result>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="remark" column="remark"></result>
+        <result property="station" column="station"></result>
+        <result property="telephone" column="telephone"></result>
+        <collection property="roles"
+                    column="id"
+                    select="com.mcs.meinian.mapper.RoleMapper.getRolesByUserId"></collection>
+    </resultMap>
+
+    <!--User getUserByUsername(@Param("username")String username)-->
+    <select id="getUserByUsername" resultMap="userResultMap">
+        select * from t_user where username = #{username}
+    </select>
+</mapper>

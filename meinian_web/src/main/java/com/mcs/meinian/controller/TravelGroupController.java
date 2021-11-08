@@ -8,6 +8,7 @@ import com.mcs.meinian.entity.Result;
 import com.mcs.meinian.pojo.TravelGroup;
 import com.mcs.meinian.pojo.TravelItem;
 import com.mcs.meinian.service.TravelGroupService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,8 +34,8 @@ public class TravelGroupController {
      * @return
      */
     @RequestMapping("/findAll")
+    @PreAuthorize("hasAnyAuthority('TRAVELITEM_QUERY')")
     public Result findAll() {
-
         try {
             List<TravelItem> list = travelGroupService.findAll();
             return new Result(true, MessageConstant.QUERY_TRAVELITEM_SUCCESS, list);
@@ -46,15 +47,17 @@ public class TravelGroupController {
 
     /**
      * 新增抱团游
+     *
      * @param travelGroup
      * @param travelItemIds
      * @return
      */
     @RequestMapping("/addTravelGroup")
-    public Result addTravelGroup(@RequestBody TravelGroup travelGroup, Integer[] travelItemIds){
+    @PreAuthorize("hasAnyAuthority('TRAVELITEM_ADD')")
+    public Result addTravelGroup(@RequestBody TravelGroup travelGroup, Integer[] travelItemIds) {
 
         try {
-            travelGroupService.addTravelGroup(travelGroup,travelItemIds);
+            travelGroupService.addTravelGroup(travelGroup, travelItemIds);
             return new Result(true, MessageConstant.ADD_TRAVELGROUP_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,54 +67,61 @@ public class TravelGroupController {
 
     /**
      * 抱团游分页查询
+     *
      * @param queryPageBean
      * @return
      */
     @RequestMapping("/findPage")
+    @PreAuthorize("hasAnyAuthority('TRAVELITEM_QUERY')")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) throws Exception {
         return travelGroupService.findPage(queryPageBean);
     }
 
     /**
      * 删除抱团游信息
+     *
      * @param id
      * @return
      */
     @RequestMapping("/deleteTravelGroup")
+    @PreAuthorize("hasAnyAuthority('TRAVELGROUP_DELETE')")
     public Result deleteTravelGroup(Integer id) {
-
         try {
             travelGroupService.deleteTravelGroup(id);
-            return new Result(true,MessageConstant.DELETE_TRAVELGROUP_SUCCESS);
+            return new Result(true, MessageConstant.DELETE_TRAVELGROUP_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(false,MessageConstant.DELETE_TRAVELGROUP_FAIL);
+            return new Result(false, MessageConstant.DELETE_TRAVELGROUP_FAIL);
         }
     }
 
     /**
      * 编辑抱团游的自由行信息回显
+     *
      * @param id
      * @return
      */
     @RequestMapping("/getTravelItemIdsByTravelGroupId")
+    @PreAuthorize("hasAnyAuthority('SETMEAL_EDIT')")
     public Result getTravelItemIdsByTravelGroupId(Integer id) {
         try {
             List<Integer> list = travelGroupService.getTravelItemIdsByTravelGroupId(id);
-            return new Result(true,MessageConstant.QUERY_TRAVELITEM_SUCCESS,list);
+            return new Result(true, MessageConstant.QUERY_TRAVELITEM_SUCCESS, list);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(false,MessageConstant.QUERY_TRAVELITEM_FAIL);
+            return new Result(false, MessageConstant.QUERY_TRAVELITEM_FAIL);
         }
     }
 
     /**
      * 编辑抱团游
+     *
      * @param travelGroup
      * @param travelItemIds
      * @return
      */
     @RequestMapping("/updateTravelGroup")
+    @PreAuthorize("hasAnyAuthority('SETMEAL_EDIT')")
     public Result updateTravelGroup(@RequestBody TravelGroup travelGroup, Integer[] travelItemIds) {
         try {
             travelGroupService.updateTravelGroup(travelGroup, travelItemIds);

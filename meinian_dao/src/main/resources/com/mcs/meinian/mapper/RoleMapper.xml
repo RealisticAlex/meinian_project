@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--配置statement
+    id:statement唯一标识
+    parameterType:输入映射类型
+    resultType:输出映射类型(只有查询操作才有结果集,因此查询操作才需要)
+    sql语句-->
+<mapper namespace="com.mcs.meinian.mapper.RoleMapper">
+    <resultMap id="roleResultMap" type="Role">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="keyword" property="keyword"></result>
+        <result column="description" property="description"></result>
+        <collection property="permissions"
+                    column="id"
+                    select="com.mcs.meinian.mapper.PermissionMapper.getPermissionsById"></collection>
+    </resultMap>
+    
+    <!--Set<Role> getRolesByUserId(@Param("id") Integer id)-->
+    <select id="getRolesByUserId" resultMap="roleResultMap">
+        select t_role.*
+        from t_user_role
+                 LEFT JOIN t_role on t_user_role.role_id = t_role.id
+        where t_user_role.user_id = #{id}
+    </select>
+</mapper>

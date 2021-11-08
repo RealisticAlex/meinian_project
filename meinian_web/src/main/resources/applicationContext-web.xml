@@ -42,7 +42,7 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
 
     <!--批量扫描-->
-    <dubbo:annotation package="com.mcs.meinian.controller"></dubbo:annotation>
+    <dubbo:annotation package="com.mcs.meinian"></dubbo:annotation>
 
     <!--
         超时全局设置 10分钟
